@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Crypto Pulse — News & Faucet Updates</title>
+  <meta name="description" content="Lightweight, fast, faucet‑news style template for crypto news, lists, and updates." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;--bg-soft:#101738;--paper:#0f172a;--text:#e5e7eb;--muted:#94a3b8;--brand:#22c55e;--brand-2:#06b6d4;--card:#111827;--stroke:#1f2937;--warn:#f59e0b;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;}
+    body{
+      font-family:'Inter',system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:linear-gradient(180deg,var(--bg) 0%, var(--bg-soft) 100%);
+      color:var(--text);
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{max-width:1200px; padding:0 1rem; margin:0 auto}
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(10px);
+      background:rgba(11,16,32,0.7);
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.8rem 0}
+    .logo{display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.3px}
+    .logo-badge{width:28px;height:28px; display:grid; place-items:center; background:conic-gradient(from 200deg, var(--brand), var(--brand-2)); border-radius:8px}
+    .logo b{font-weight:800}
+    .navlinks{display:flex; gap:.8rem; align-items:center; flex-wrap:wrap}
+    .chip{padding:.45rem .7rem; font-size:.9rem; border:1px solid var(--stroke); border-radius:999px; color:var(--muted)}
+    .chip.active{border-color:transparent; color:#0b1020; background:linear-gradient(90deg,var(--brand),var(--brand-2)); font-weight:700}
+    .actions{display:flex; gap:.5rem; align-items:center}
+    .btn{padding:.55rem .8rem; border:1px solid var(--stroke); border-radius:10px; background:#0f172a; color:#e5e7eb}
+    .btn.primary{border:0; background:linear-gradient(90deg,var(--brand),var(--brand-2)); color:#0b1020; font-weight:700}
+    .search{display:flex; align-items:center; gap:.4rem; padding:.5rem .7rem; border:1px solid var(--stroke); background:#0f172a; border-radius:12px}
+    .search input{background:transparent; border:0; outline:0; color:var(--text); width:160px}
+    /* Hero */
+    .hero{padding:1.2rem 0 0}
+    .hero-grid{display:grid; grid-template-columns:2fr 1fr; gap:1rem}
+    .feature{position:relative; overflow:hidden; border-radius:16px; background:#0e152e; border:1px solid var(--stroke)}
+    .feature-media{height:280px; background:linear-gradient(120deg,#0e152e,#192649)}
+    .feature-content{position:absolute; inset:auto 0 0 0; padding:1rem; background:linear-gradient(180deg, transparent, rgba(0,0,0,.55));}
+    .feature .tag{display:inline-flex; align-items:center; gap:.35rem; font-size:.8rem; color:#0b1020; background:linear-gradient(90deg,var(--brand),var(--brand-2)); padding:.3rem .55rem; border-radius:999px; font-weight:700}
+    .feature h2{margin:.6rem 0 .3rem; font-size:1.4rem}
+    .feature p{margin:.2rem 0; color:var(--muted)}
+    /* Layout */
+    .layout{display:grid; grid-template-columns:2.2fr 1fr; gap:1.2rem; margin:1.2rem 0 2rem}
+    /* Cards */
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1rem}
+    .card{background:var(--card); border:1px solid var(--stroke); border-radius:16px; overflow:hidden; display:flex; flex-direction:column}
+    .card-media{height:150px; background:linear-gradient(130deg,#0f172a,#1b2550)}
+    .card-body{padding:.9rem}
+    .card .tag{font-size:.75rem; color:var(--muted); border:1px dashed var(--stroke); padding:.2rem .5rem; border-radius:999px}
+    .card h3{margin:.5rem 0 .35rem; font-size:1.05rem}
+    .meta{font-size:.8rem; color:var(--muted)}
+    .card-footer{margin-top:auto; padding:.8rem .9rem; display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--stroke)}
+    .link{font-weight:600; color:var(--brand-2)}
+    /* Sidebar */
+    aside{display:flex; flex-direction:column; gap:1rem}
+    .panel{background:var(--card); border:1px solid var(--stroke); border-radius:16px; overflow:hidden}
+    .panel h4{margin:0; padding:.9rem .9rem .2rem}
+    .panel .content{padding:.2rem .9rem .9rem}
+    .list{display:flex; flex-direction:column; gap:.6rem}
+    .list a{display:flex; gap:.6rem; align-items:flex-start; padding:.5rem; border-radius:10px; border:1px dashed transparent}
+    .list a:hover{border-color:var(--stroke)}
+    .bullet{width:26px;height:26px;border-radius:7px;background:linear-gradient(90deg,var(--brand),var(--brand-2)); opacity:.9}
+    .subscribe{display:flex; flex-direction:column; gap:.6rem}
+    .subscribe input{width:100%; padding:.7rem .8rem; border-radius:10px; border:1px solid var(--stroke); background:#0f172a; color:var(--text)}
+    /* Footer */
+    footer{border-top:1px solid var(--stroke); padding:1.2rem 0; color:var(--muted)}
+    .footer-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; gap:1rem}
+    .badge{display:inline-flex; align-items:center; gap:.4rem; font-size:.85rem; padding:.35rem .6rem; border:1px solid var(--stroke); border-radius:999px}
+    /* Utilities */
+    .row{display:flex; gap:.6rem; align-items:center}
+    .hidden{display:none}
+    .divider{height:1px; background:var(--stroke); margin:.7rem 0}
+    .muted{color:var(--muted)}
+    /* Responsive */
+    @media (max-width: 1100px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns:1fr}
+      .layout{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .navlinks{display:none}
+      .feature-media{height:220px}
+    }
+  </style>
+  <script>
+    // Simple fake data and filtering (replace with API/CMS later)
+    const POSTS = [
+      {id:1, title:'BingX Returns to Normal Operations After $43M Incident', tag:'Exchanges', date:'2025-09-30', read: '3 min', url:'#', img:'', excerpt:'BingX says operations are back online while users report unresolved tickets.'},
+      {id:2, title:'Search Volume for “Bitcoin” Hits Yearly Low', tag:'Markets', date:'2025-09-29', read: '2 min', url:'#', img:'', excerpt:'Google Trends shows interest cooling as memecoins heat up.'},
+      {id:3, title:'Binance Addresses Rumors of Moonbix Token', tag:'Exchanges', date:'2025-09-28', read: '3 min', url:'#', img:'', excerpt:'Official statement clarifies no separate token planned.'},
+      {id:4, title:'Top Faucets — BNB & SOL Edition', tag:'Faucet Lists', date:'2025-09-27', read: '5 min', url:'#', img:'', excerpt:'Curated picks with payout speed, min withdraw, and KYC notes.'},
+      {id:5, title:'How to Avoid Faucet Scams', tag:'Guides', date:'2025-09-25', read: '6 min', url:'#', img:'', excerpt:'Checklist for spotting red flags before you click.'},
+      {id:6, title:'EigenLayer (EIGEN) Listing — What to Know', tag:'Altcoins', date:'2025-09-30', read:'4 min', url:'#', img:'', excerpt:'Liquidity, unlocks, and key dates overview.'},
+      {id:7, title:'Daily Airdrop Roundup', tag:'Airdrops', date:'2025-09-30', read:'4 min', url:'#', img:'', excerpt:'Today’s legit campaigns worth a look.'},
+      {id:8, title:'Security: Wallet Hygiene 101', tag:'Security', date:'2025-09-28', read:'7 min', url:'#', img:'', excerpt:'Practical steps to protect tokens and accounts.'},
+      {id:9, title:'Regulation Watch — Weekly', tag:'Policy', date:'2025-09-26', read:'5 min', url:'#', img:'', excerpt:'Big moves from the EU and APAC to track.'}
+    ];
+    const CATS = ['All','Faucet Lists','Guides','Airdrops','Exchanges','Markets','Altcoins','Security','Policy'];function el(html){const t=document.createElement('template'); t.innerHTML=html.trim(); return t.content.firstChild;}
+
+function renderCategories(){
+  const holder = document.querySelector('#cats');
+  holder.innerHTML='';
+  CATS.forEach((c,i)=>{
+    const a = el(`<a href="#" class="chip ${i===0?'active':''}" data-cat="${c}">${c}</a>`);
+    a.addEventListener('click',(e)=>{e.preventDefault(); document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active')); a.classList.add('active'); renderPosts(c, document.querySelector('#q').value||'');});
+    holder.appendChild(a);
+  });
+}
+function renderPosts(cat='All', q=''){
+  const grid = document.querySelector('#grid');
+  const data = POSTS.filter(p=> (cat==='All'||p.tag===cat) && (!q || p.title.toLowerCase().includes(q.toLowerCase())));
+  grid.innerHTML='';
+  data.forEach(p=>{
+    grid.appendChild(el(`
+      <article class="card">
+        <div class="card-media" role="img" aria-label="${p.title}"></div>
+        <div class="card-body">
+          <span class="tag">${p.tag}</span>
+          <h3>${p.title}</h3>
+          <p class="muted">${p.excerpt}</p>
+          <div class="meta">${new Date(p.date).toLocaleDateString()} • ${p.read} read</div>
+        </div>
+        <div class="card-footer">
+          <a class="link" href="${p.url}">Read</a>
+          <button class="btn" aria-label="Save">★</button>
+        </div>
+      </article>`));
+  });
+  document.querySelector('#resultCount').textContent = data.length + ' posts';
+}
+function handleSearch(){
+  const q = document.querySelector('#q').value || '';
+  const active = document.querySelector('.chip.active')?.dataset?.cat || 'All';
+  renderPosts(active, q);
+}
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderCategories();
+  renderPosts();
+  document.querySelector('#q').addEventListener('input', handleSearch);
+});
+
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"NewsMediaOrganization",
+    "name":"Crypto Pulse",
+    "url":"https://example.com",
+    "logo":{"@type":"ImageObject","url":"/logo.png"}
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="logo" href="#">
+        <span class="logo-badge">⚡</span>
+        <span>Crypto <b>Pulse</b></span>
+      </a>
+      <nav class="navlinks" id="cats"></nav>
+      <div class="actions">
+        <label class="search" aria-label="Search posts">
+          🔎<input id="q" placeholder="Search…" />
+        </label>
+        <a class="btn" href="#lists">Lists</a>
+        <a class="btn primary" href="#subscribe">Subscribe</a>
+      </div>
+    </div>
+  </header>  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <article class="feature">
+          <div class="feature-media"></div>
+          <div class="feature-content">
+            <span class="tag">Featured</span>
+            <h2>Daily Faucet & Airdrop Roundup</h2>
+            <p class="muted">Curated opportunities with notes on KYC, payout speed, and trust signals.</p>
+            <div class="row muted">Updated <time datetime="2025-09-30">Sep 30, 2025</time> • <span>5 min read</span></div>
+          </div>
+        </article>
+        <div class="panel">
+          <h4>Trending</h4>
+          <div class="content list">
+            <a href="#"><span class="bullet"></span><div>
+              <b>Top BNB Faucets</b>
+              <div class="muted">Fast payouts & low mins</div>
+            </div></a>
+            <a href="#"><span class="bullet"></span><div>
+              <b>Wallet Hygiene 101</b>
+              <div class="muted">Security basics that save coins</div>
+            </div></a>
+            <a href="#"><span class="bullet"></span><div>
+              <b>Moonbix Token Rumors</b>
+              <div class="muted">What the exchanges actually said</div>
+            </div></a>
+          </div>
+        </div>
+      </div>
+    </section><!-- MAIN LAYOUT -->
+<section class="layout">
+  <div>
+    <div class="row muted" style="margin:.2rem 0 .7rem" id="resultCount">9 posts</div>
+    <div class="grid" id="grid"><!-- cards via JS --></div>
+  </div>
+  <aside>
+    <div class="panel" id="lists">
+      <h4>Faucet Lists</h4>
+      <div class="content">
+        <div class="badge">BNB</div>
+        <div class="divider"></div>
+        <ul class="list" style="list-style:none; padding:0; margin:0">
+          <li><a href="#"><span class="bullet"></span><div><b>FreeBNBMining</b><div class="muted">No KYC, daily cap</div></div></a></li>
+          <li><a href="#"><span class="bullet"></span><div><b>BNBTree</b><div class="muted">Watch withdrawals</div></div></a></li>
+          <li><a href="#"><span class="bullet"></span><div><b>MiningSOL</b><div class="muted">SOL & POL variants</div></div></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="panel" id="subscribe">
+      <h4>Subscribe</h4>
+      <div class="content subscribe">
+        <input type="email" placeholder="Email address" aria-label="Email" />
+        <button class="btn primary">Get updates</button>
+        <p class="muted" style="font-size:.85rem">No spam. We verify lists and call out risks.</p>
+      </div>
+    </div>
+    <div class="panel">
+      <h4>About</h4>
+      <div class="content">
+        <p class="muted">Built as a clean, fast clone of a faucet‑news style site. Swap the dummy data for your CMS or a simple JSON file.</p>
+      </div>
+    </div>
+  </aside>
+</section>
+
+  </main>  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="row"><span class="logo-badge"></span><b>Crypto Pulse</b></div>
+        <p class="muted">© <span id="year"></span> All rights reserved.</p>
+      </div>
+      <div>
+        <div class="badge">No KYC lists</div>
+        <div class="badge">Scam safety tips</div>
+      </div>
+      <div>
+        <a class="muted" href="#">Privacy</a><br>
+        <a class="muted" href="#">Terms</a>
+      </div>
+      <div>
+        <a class="muted" href="#">Contact</a><br>
+        <a class="muted" href="#">Telegram</a>
+      </div>
+    </div>
+    <script>document.getElementById('year').textContent = new Date().getFullYear()</script>
+  </footer>
+</body>
+</html>
